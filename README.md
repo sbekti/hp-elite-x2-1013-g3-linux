@@ -8,7 +8,7 @@ This is a community workaround, not complete camera support. The rear OV8856
 and IR OV7251 remain unavailable. Image tuning uses libcamera's generic IPU3
 defaults. A user reported higher-than-expected framing; changing aspect ratio
 did not resolve it, and no Windows comparison is available. Suspend/resume
-validation is still pending.
+testing has passed on kernel 7.3.4.
 
 ## What changes
 
@@ -118,7 +118,7 @@ On the tested HP, the prototype and installed package loaded with Secure Boot en
 | Libcamera 1280×960 | Captures at approximately 30 fps |
 | PipeWire 640×480 | 60 buffers completed successfully |
 | GNOME Camera (Snapshot) | User confirmed a live image |
-| Suspend/resume | Not yet tested |
+| Suspend/resume on 7.3.4 | Resumes and captures at approximately 30 fps |
 | Rear / IR cameras | Not supported by this workaround |
 
 See `VALIDATION.md` for package and update-build results. A successful build

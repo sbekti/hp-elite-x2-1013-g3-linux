@@ -1,6 +1,7 @@
 # Validation
 
-2026-11-24, HP Elite x2 1013 G3, Fedora 45 Workstation, Secure Boot enabled.
+2026-11-24 and 2026-11-25, HP Elite x2 1013 G3, Fedora 45 Workstation,
+Secure Boot enabled.
 
 The manual prototype passed libcamera, PipeWire and GNOME Snapshot capture on
 kernel 7.2.11-300.fc45.x86_64. See README for measurements and limitations.
@@ -22,7 +23,10 @@ kernel 7.2.11-300.fc45.x86_64. See README for measurements and limitations.
 - After a reboot into 7.3.4, the packaged replacement loaded automatically with
   `hp_front_only=1` and Secure Boot enabled. A fresh 30-frame capture passed at
   approximately 30 fps. This validates a real kernel-update boot, not just a build.
-- Suspend/resume validation is pending.
+- Suspend/resume on 7.3.4 passed. Kernel logs confirmed s2idle entry and exit;
+  the resumed camera captured another 30 frames at approximately 30 fps.
+- PipeWire capture after the kernel update and suspend/resume completed
+  60 buffers and reached EOS successfully.
 
 The GNOME preview showed a live color image. The user reported a higher-looking
 viewing angle; a 4:3 comparison did not resolve this. A 1280x960 capture reported

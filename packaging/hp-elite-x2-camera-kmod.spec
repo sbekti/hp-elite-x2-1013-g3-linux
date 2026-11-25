@@ -1,7 +1,7 @@
 %global buildforkernels akmod
 %global debug_package %{nil}
 %global prjname hp-elite-x2-camera
-%global AkmodsBuildRequires gcc, make, elfutils-libelf-devel, kmodtool
+%global AkmodsBuildRequires gcc, make, patch, elfutils-libelf-devel, kmodtool
 
 Name:           %{prjname}-kmod
 Version:        0.1.0
