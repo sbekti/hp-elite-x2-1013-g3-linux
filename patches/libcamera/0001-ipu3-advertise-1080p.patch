@@ -1,0 +1,30 @@
+--- a/src/libcamera/pipeline/ipu3/ipu3.cpp
++++ b/src/libcamera/pipeline/ipu3/ipu3.cpp
+@@ -454,6 +454,27 @@
+ 			bufferCount = IPU3CameraConfiguration::kBufferCount;
+ 			streamFormats[pixelFormat] = { { ImgUDevice::kOutputMinSize, size } };
+ 
++			/*
++			 * Keep the default preview size. Advertise 1080p in
++			 * addition to the existing sizes if ImgU can produce it.
++			 */
++			const Size fullHd{ 1920, 1080 };
++			IPU3CameraConfiguration candidate(data);
++			StreamConfiguration stream;
++			stream.size = fullHd;
++			stream.pixelFormat = pixelFormat;
++			stream.bufferCount = bufferCount;
++			candidate.addConfiguration(stream);
++			if (candidate.validate() != CameraConfiguration::Invalid &&
++			    candidate.at(0).size == fullHd) {
++				auto &ranges = streamFormats[pixelFormat];
++				const StreamFormats formats(streamFormats);
++				ranges.clear();
++				for (const Size &supported : formats.sizes(pixelFormat))
++					ranges.emplace_back(supported);
++				ranges.emplace_back(fullHd);
++			}
++
+ 			break;
+ 		}
+ 

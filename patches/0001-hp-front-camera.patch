@@ -8,7 +8,7 @@
  #include <linux/interrupt.h>
  #include <linux/iopoll.h>
  #include <linux/mm.h>
-@@ -33,6 +34,11 @@
+@@ -33,6 +34,16 @@
  #include <media/videobuf2-dma-sg.h>
  
  #include "ipu3-cio2.h"
@@ -17,37 +17,46 @@
 +module_param(hp_front_only, bool, 0444);
 +MODULE_PARM_DESC(hp_front_only,
 +		 "Use only the front camera on HP Elite x2 1013 G3");
++
++static bool hp_color_only;
++module_param(hp_color_only, bool, 0444);
++MODULE_PARM_DESC(hp_color_only,
++		 "Use the front and rear cameras on HP Elite x2 1013 G3");
  
  struct ipu3_cio2_fmt {
  	u32 mbus_code;
-@@ -1428,6 +1434,13 @@
+@@ -1428,6 +1439,14 @@
  	unsigned int i;
  	int ret;
  
-+	if (hp_front_only) {
++	if (hp_front_only || hp_color_only) {
 +		if (!dmi_match(DMI_SYS_VENDOR, "HP") ||
 +		    !dmi_match(DMI_PRODUCT_NAME, "HP Elite x2 1013 G3"))
 +			return -ENODEV;
-+		dev_info(dev, "HP front-only camera workaround enabled\n");
++		dev_info(dev, "HP camera workaround enabled (%s)\n",
++			 hp_front_only ? "front only" : "front and rear");
 +	}
 +
  	for (i = 0; i < CIO2_NUM_PORTS; i++) {
  		struct v4l2_fwnode_endpoint vep = {
  			.bus_type = V4L2_MBUS_CSI2_DPHY
-@@ -1443,6 +1456,20 @@
+@@ -1443,6 +1462,23 @@
  		ret = v4l2_fwnode_endpoint_parse(ep, &vep);
  		if (ret)
  			goto err_parse;
 +
-+		/* The rear and IR sensors otherwise block notifier completion. */
-+		if (hp_front_only) {
++		/* Unsupported sensors would hold up notifier completion. */
++		if (hp_front_only || hp_color_only) {
 +			struct fwnode_handle *sensor;
-+			bool front;
++			bool selected;
 +
 +			sensor = fwnode_graph_get_remote_port_parent(ep);
-+			front = sensor && fwnode_name_eq(sensor, "OVTI5675-1");
++			selected = sensor &&
++				(fwnode_name_eq(sensor, "OVTI5675-1") ||
++				 (!hp_front_only &&
++				  fwnode_name_eq(sensor, "OVTI8856-0")));
 +			fwnode_handle_put(sensor);
-+			if (!front) {
++			if (!selected) {
 +				fwnode_handle_put(ep);
 +				continue;
 +			}
