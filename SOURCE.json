@@ -1,0 +1,10 @@
+{
+  "kernel_version": "7.2.11",
+  "fedora_source_rpm": "kernel-7.2.11-300.fc45.src.rpm",
+  "url": "https://kojipkgs.fedoraproject.org/packages/kernel/7.2.11/300.fc45/src/kernel-7.2.11-300.fc45.src.rpm",
+  "files": {
+    "ipu3-cio2.c": "947af88d9f4a2aafd5fee0ecaea58add4a82876859b76d8feecd2540e61e440d",
+    "ipu3-cio2.h": "8e37d9781dddb39e405aaa21848e058917c8bed384e63cff67174b637503affc"
+  },
+  "notes": "Original kernel copyright notices retained. Fedora additional patch does not modify these files. Source RPM SHA256 digests verified; Koji source RPM is unsigned."
+}

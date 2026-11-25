@@ -1,0 +1,9 @@
+dist/
+.build/
+*.rpm
+*.ko
+*.o
+*.der
+*.priv
+*.key
+*.pem
