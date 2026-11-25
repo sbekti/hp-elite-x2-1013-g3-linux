@@ -1,0 +1,48 @@
+{
+  "controller": {
+    "acpi_path": "\\_SB.PCI0.CLP0",
+    "type": 2,
+    "firmware_version": 80,
+    "i2c_address": 77,
+    "configuration_bytes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      3
+    ]
+  },
+  "sensors": [
+    {
+      "model": "OV8856",
+      "acpi_path": "\\_SB.PCI0.LNK0",
+      "csi_port": 0,
+      "lanes": 4,
+      "clock_hz": 19200000,
+      "controller_index": 0,
+      "i2c_bus_index": 2,
+      "i2c_address": 16
+    },
+    {
+      "model": "OV5675",
+      "acpi_path": "\\_SB.PCI0.LNK1",
+      "csi_port": 1,
+      "lanes": 2,
+      "clock_hz": 19200000,
+      "controller_index": 1,
+      "i2c_bus_index": 2,
+      "i2c_address": 54
+    },
+    {
+      "model": "OV7251",
+      "acpi_path": "\\_SB.PCI0.LNK2",
+      "csi_port": 2,
+      "lanes": 1,
+      "clock_hz": 19200000,
+      "controller_index": 0,
+      "i2c_bus_index": 3,
+      "i2c_address": 96
+    }
+  ]
+}
