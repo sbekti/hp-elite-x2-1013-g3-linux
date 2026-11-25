@@ -19,7 +19,10 @@ kernel 7.2.11-300.fc45.x86_64. See README for measurements and limitations.
   `hp_front_only=1` through packaged configuration and captured 30 frames at
   approximately 30 fps with Secure Boot enabled.
 - Neither tested initramfs contained CIO2, so no initramfs modification was needed.
-- 7.3.4 runtime validation and suspend/resume are pending.
+- After a reboot into 7.3.4, the packaged replacement loaded automatically with
+  `hp_front_only=1` and Secure Boot enabled. A fresh 30-frame capture passed at
+  approximately 30 fps. This validates a real kernel-update boot, not just a build.
+- Suspend/resume validation is pending.
 
 The GNOME preview showed a live color image. The user reported a higher-looking
 viewing angle; a 4:3 comparison did not resolve this. A 1280x960 capture reported

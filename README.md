@@ -113,7 +113,7 @@ On the tested HP, the prototype and installed package loaded with Secure Boot en
 | Check | Result |
 |---|---|
 | Kernel 7.2.11-300.fc45.x86_64 | Front camera enumerates and captures |
-| Kernel 7.3.4-300.fc45.x86_64 | Akmod build/signing passed; runtime test pending |
+| Kernel 7.3.4-300.fc45.x86_64 | Loaded automatically after reboot; captures at approximately 30 fps |
 | Libcamera 640×480 | 30 frames, approximately 30 fps |
 | Libcamera 1280×960 | Captures at approximately 30 fps |
 | PipeWire 640×480 | 60 buffers completed successfully |

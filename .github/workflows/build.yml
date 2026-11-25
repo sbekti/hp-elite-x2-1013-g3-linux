@@ -24,4 +24,5 @@ jobs:
           kernel_release=$(find /usr/src/kernels -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -V | tail -n 1)
           test -n "$kernel_release"
           mkdir -p .build/kernel
-          akmodsbuild --kernels "$kernel_release" --outputdir "$PWD/.build/kernel" .build/rpmbuild/SRPMS/*.src.rpm
+          chown akmods:akmods .build/kernel
+          runuser -u akmods -- akmodsbuild --kernels "$kernel_release" --outputdir "$PWD/.build/kernel" .build/rpmbuild/SRPMS/*.src.rpm
