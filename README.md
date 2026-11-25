@@ -5,10 +5,11 @@ on the HP Elite x2 1013 G3. Packaged for Fedora Workstation using akmods so the
 module is rebuilt and signed locally when compatible kernel updates arrive.
 
 This is a community workaround, not complete camera support. The rear OV8856
-and IR OV7251 remain unavailable. Image tuning uses libcamera's generic IPU3
-defaults. A user reported higher-than-expected framing; changing aspect ratio
-did not resolve it, and no Windows comparison is available. Suspend/resume
-testing has passed on kernel 7.3.4.
+and IR OV7251 remain unavailable on Linux. Image tuning uses libcamera's generic
+IPU3 defaults; the user reports a sharper, better-colored front image in Windows.
+A direct 1920x1080 Linux preview did not resolve the softness and washed-out color.
+Framing looks similar in both operating systems. Suspend/resume testing has
+passed on kernel 7.3.4.
 
 ## What changes
 

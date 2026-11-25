@@ -28,7 +28,34 @@ kernel 7.2.11-300.fc45.x86_64. See README for measurements and limitations.
 - PipeWire capture after the kernel update and suspend/resume completed
   60 buffers and reached EOS successfully.
 
-The GNOME preview showed a live color image. The user reported a higher-looking
-viewing angle; a 4:3 comparison did not resolve this. A 1280x960 capture reported
-the full 2592x1944 active sensor area. No same-angle Windows reference is available.
-This remains an open image-quality concern, not a claimed solved issue.
+The GNOME preview showed a live color image. A 1280x960 capture reported
+the full 2592x1944 active sensor area.
+
+## Windows comparison and front image quality, 2026-11-25
+
+The user verified that Windows produces live front and rear camera images.
+Front framing looks similar in Windows and Fedora, resolving the earlier concern
+about a Linux-specific viewing angle. The Windows front image is sharper and has
+better color according to the user; there is no matched image pair for an
+objective image-quality measurement.
+
+With libcamera 0.7.2-6.fc45 and PipeWire 1.6.9-1.fc45:
+
+- PipeWire advertises the front camera only up to 1280x720. This is the advertised
+  maximum, not evidence of the resolution previously negotiated by Snapshot.
+- Direct libcamera viewfinder configuration accepts 1920x1080. A live SDL preview
+  configured at that size streamed from the 2592x1944 sensor mode, but the user
+  still reported a soft, washed-out image. The test preview was then stopped.
+- A still configuration request for 2592x1944 adjusts to 2560x1920. This was a
+  configuration check, not a validated still capture.
+- libcamera reports missing ov5675.yaml and falls back to uncalibrated.yaml.
+  It also reports unverified default sensor delays.
+
+libcamera's IPU3 viewfinder/video stream format range ends at its 1280x720
+initial configuration, while direct configuration can accept larger sizes:
+https://github.com/libcamera-org/libcamera/blob/v0.7.2/src/libcamera/pipeline/ipu3/ipu3.cpp
+
+Resolution and image processing are separate concerns. No persistent userspace
+changes or speculative tuning values were installed. Matching Windows image
+quality remains unverified and unresolved; the kernel workaround does not
+provide sensor calibration.
