@@ -8,6 +8,7 @@ Version:        0.1.0
 Release:        2%{?dist}
 Summary:        Brightness keys for the HP Elite x2 1013 G3
 License:        GPL-2.0-only
+URL:            https://github.com/sbekti/hp-elite-x2-1013-g3-linux
 Source0:        %{prjname}-%{version}.tar.gz
 BuildRequires:  %{AkmodsBuildRequires}
 Provides:       %{prjname}-kmod-common = %{version}

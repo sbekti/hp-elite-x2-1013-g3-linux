@@ -15,8 +15,8 @@ Two independently installable Fedora akmods for the HP Elite x2 1013 G3.
 
 ```bash
 sudo dnf install akmods kmodtool rpm-build gcc make elfutils-libelf-devel git
-git clone https://github.com/sbekti/hp-elite-x2-1013-g3-camera.git
-cd hp-elite-x2-1013-g3-camera
+git clone https://github.com/sbekti/hp-elite-x2-1013-g3-linux.git
+cd hp-elite-x2-1013-g3-linux
 make rpm
 ```
 
