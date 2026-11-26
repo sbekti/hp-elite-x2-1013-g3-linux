@@ -22,14 +22,25 @@ kernel 7.2.11-300.fc45.x86_64. See README for measurements and limitations.
 - Neither tested initramfs contained CIO2, so no initramfs modification was needed.
 - After a reboot into 7.3.4, the packaged replacement loaded automatically with
   `hp_front_only=1` and Secure Boot enabled. A fresh 30-frame capture passed at
-  approximately 30 fps. This validates a real kernel-update boot, not just a build.
+  approximately 30 fps. This verifies loading on a kernel-update boot.
 - Suspend/resume on 7.3.4 passed. Kernel logs confirmed s2idle entry and exit;
   the resumed camera captured another 30 frames at approximately 30 fps.
 - PipeWire capture after the kernel update and suspend/resume completed
   60 buffers and reached EOS successfully.
 
-The GNOME preview showed a live color image. A 1280x960 capture reported
-the full 2592x1944 active sensor area.
+The GNOME preview showed live color. A 1280x960 capture reported a 2592x1944
+active sensor area.
+
+## Hotkeys
+
+- On board 8414, brightness down, brightness up, and microphone mute all
+  produced AT scancode `0x81`. The HP BIOS WMI LastHotKey query returned
+  `0x0a0001b6`, `0x0a0001b7`, and `0x270`, respectively, on two rounds.
+- On Fedora 45 with GNOME 51 and kernel 7.3.4, the module emitted Linux
+  keycodes 224, 225, and 248. The screen backlight changed from 804 to 656
+  and back to 804, and only the microphone key changed the mute state.
+- Akmods built signed packages for 7.2.11 and 7.3.4. The 7.3.4 package
+  loaded through `modprobe` with Secure Boot enabled.
 
 ## Windows comparison and front image quality, 2026-11-25
 
