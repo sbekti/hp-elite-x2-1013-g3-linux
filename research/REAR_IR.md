@@ -66,12 +66,19 @@ kept privately because device properties contain machine-specific identifiers.
 Partition-layout and EFI backups are retained off the HP, with copies under
 HP-Camera/Recovery on the USB. These cover boot metadata, not all user files.
 
-## Remaining gates
+## Rear camera parity work
 
-1. Establish actual board supply/reset configuration; then add a model-specific
-   TPS68470 entry and test the rear sensor before IR capture.
-2. Validate illumination without assuming USB-emitter tooling applies to this
-   I2C-controlled camera assembly.
-3. Use existing packaged software only for face login. If it cannot consume the
-   IR frames, document that limitation rather than add a custom capture adapter.
-   Keep PAM unchanged until IR capture and a supported authentication path work.
+Firmware identifies the rear lens actuator as DW9714 (SSDB lens type 2,
+I2C address 0x0c). CIO2 already calls the IPU bridge's actuator-instantiation
+helper when the sensor binds. The tested kernel provides the DW9714 driver.
+Rear power and autofocus still need hardware verification.
+
+The matching Intel control driver exposes a private WPP provider. Its
+successful I2C write events contain the register, value, and status. A short
+rear-camera open/close trace can reveal the programmed values and ordering.
+The trace must show the rear camera transition before it is used as board
+data. Constructor defaults can be overridden by per-sensor configuration.
+
+The opt-in `hp_color_only` CIO2 patch builds against Fedora 7.3.4 and selects
+the front and rear sensors. The installed front-only package remains the
+rollback while the rear electrical settings are verified.

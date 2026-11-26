@@ -59,3 +59,24 @@ Resolution and image processing are separate concerns. No persistent userspace
 changes or speculative tuning values were installed. Matching Windows image
 quality remains unverified and unresolved; the kernel workaround does not
 provide sensor calibration.
+
+## Front parity experiments
+
+- A separate libcamera 0.8.0 build captured 90 NV12 frames at about 30 fps at
+  both 1920x1080 and 2560x1920. Metadata confirmed the locally generated HP
+  profile applied a non-identity color matrix.
+- A stock-versus-tuned 1080p live comparison on the HP found similar
+  sharpness and a red cast with the imported profile. Keep the profile
+  experimental until matched captures identify a usable correction.
+- libcamera reports an unsupported sensor rectangle and missing sensor
+  control delays. The capture logs also show zero effective exposure on the
+  first two frames. CIO2 sometimes logs a short DMA payload when closing
+  the preview. Neither warning was reproduced as sustained frame loss in
+  these short captures.
+- The Fedora libcamera 0.8.0 RPMs and a matching plug-in for PipeWire
+  1.6.9 built successfully. On the HP, an isolated PipeWire and WirePlumber
+  session advertised 1920x1080 and delivered 90 NV12 buffers at that size
+  through GStreamer in 3.16 seconds. No experimental tuning was loaded.
+- A DNF dry run resolved the four candidate packages without changing the
+  PipeWire audio packages. Testing used extracted RPMs. The desktop still
+  uses the installed Fedora packages.
