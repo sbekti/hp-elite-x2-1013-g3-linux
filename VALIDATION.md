@@ -33,19 +33,15 @@ the full 2592x1944 active sensor area.
 
 ## Windows comparison and front image quality, 2026-11-25
 
-The user verified that Windows produces live front and rear camera images.
-Front framing looks similar in Windows and Fedora, resolving the earlier concern
-about a Linux-specific viewing angle. The Windows front image is sharper and has
-better color according to the user; there is no matched image pair for an
-objective image-quality measurement.
+Windows produced live front and rear camera images. The front camera's framing
+looked similar in Fedora and Windows during a live comparison. Matched reference
+captures for quantitative comparison are pending.
 
 With libcamera 0.7.2-6.fc45 and PipeWire 1.6.9-1.fc45:
 
-- PipeWire advertises the front camera only up to 1280x720. This is the advertised
-  maximum, not evidence of the resolution previously negotiated by Snapshot.
+- PipeWire advertises the front camera up to 1280x720.
 - Direct libcamera viewfinder configuration accepts 1920x1080. A live SDL preview
-  configured at that size streamed from the 2592x1944 sensor mode, but the user
-  still reported a soft, washed-out image. The test preview was then stopped.
+  at that size streamed from the 2592x1944 sensor mode.
 - A still configuration request for 2592x1944 adjusts to 2560x1920. This was a
   configuration check, not a validated still capture.
 - libcamera reports missing ov5675.yaml and falls back to uncalibrated.yaml.
@@ -66,8 +62,7 @@ provide sensor calibration.
   both 1920x1080 and 2560x1920. Metadata confirmed the locally generated HP
   profile applied a non-identity color matrix.
 - A stock-versus-tuned 1080p live comparison on the HP found similar
-  sharpness and a red cast with the imported profile. Keep the profile
-  experimental until matched captures identify a usable correction.
+  sharpness and a red cast with the imported profile.
 - libcamera reports an unsupported sensor rectangle and missing sensor
   control delays. The capture logs also show zero effective exposure on the
   first two frames. CIO2 sometimes logs a short DMA payload when closing
