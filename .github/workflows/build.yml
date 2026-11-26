@@ -1,4 +1,4 @@
-name: Build Fedora akmod
+name: Build Fedora akmods
 
 on:
   push:
@@ -23,6 +23,8 @@ jobs:
         run: |
           kernel_release=$(find /usr/src/kernels -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -V | tail -n 1)
           test -n "$kernel_release"
-          mkdir -p .build/kernel
-          chown akmods:akmods .build/kernel
-          runuser -u akmods -- akmodsbuild --kernels "$kernel_release" --outputdir "$PWD/.build/kernel" .build/rpmbuild/SRPMS/*.src.rpm
+          install -d -o akmods -g akmods .build/kernel
+          for component in camera hotkeys; do
+            runuser -u akmods -- akmodsbuild --kernels "$kernel_release" --outputdir "$PWD/.build/kernel" \
+              .build/"$component-rpm"/SRPMS/*.src.rpm
+          done
