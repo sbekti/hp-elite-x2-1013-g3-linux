@@ -5,7 +5,7 @@
 
 Name:           %{prjname}-kmod
 Version:        0.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Brightness keys for the HP Elite x2 1013 G3
 License:        GPL-2.0-only
 URL:            https://github.com/sbekti/hp-elite-x2-1013-g3-linux
@@ -45,5 +45,5 @@ done
 %{_modulesloaddir}/hp-elite-x2-hotkeys.conf
 
 %changelog
-* Wed Nov 25 2026 HP Elite x2 Project - 0.1.0-2
+* Wed Nov 25 2026 HP Elite x2 Project - 0.1.0-3
 - Package the board-specific brightness and microphone hotkeys.

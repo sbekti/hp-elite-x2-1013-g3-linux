@@ -100,11 +100,10 @@ static bool hp_keyboard_filter(struct input_handle *handle, unsigned int type,
 		container_of(handle, struct hp_keyboard_handle, handle);
 	bool suppress;
 
-	if (type == EV_MSC && code == MSC_SCAN) {
+	if (type == EV_MSC && code == MSC_SCAN)
 		keyboard->shared_scan = value == HP_SHARED_SCAN;
-	} else if (type == EV_SYN) {
+	else if (type == EV_SYN)
 		keyboard->shared_scan = false;
-	}
 
 	if (type != EV_KEY || code != KEY_MICMUTE)
 		return false;
@@ -136,7 +135,7 @@ static int hp_keyboard_connect(struct input_handler *handler, struct input_dev *
 	struct hp_keyboard_handle *keyboard;
 	int ret;
 
-	keyboard = kzalloc(sizeof(*keyboard), GFP_KERNEL);
+	keyboard = kzalloc_obj(*keyboard);
 	if (!keyboard)
 		return -ENOMEM;
 
